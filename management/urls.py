@@ -24,6 +24,7 @@ urlpatterns = [
     path("", account.login),
     path('login/', account.login),
     path('logout/', account.logout),
+    path('register/', account.register),
 
     #     学生信息
     path('student/list/', student.student_list),

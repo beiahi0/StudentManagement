@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 
 from management import models
-from management.utils.form import LoginForm
+from management.utils.form import LoginForm, RegisterForm
 
 
 def login(request):
@@ -52,3 +52,22 @@ def logout(request):
     # 注销
     request.session.clear()
     return redirect('/login/')
+
+
+def register(request):
+    form = RegisterForm()
+    context = {
+        "form": form
+    }
+    if request.method == "GET":
+        return render(request, 'register.html', context)
+
+    form = RegisterForm(data=request.POST)
+    if form.is_valid():
+        form.save()
+        print("register valid")
+        return redirect("/login/")
+
+    context['form'] = form
+    print("register valid")
+    return render(request, 'register.html', context)

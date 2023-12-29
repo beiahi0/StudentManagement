@@ -22,8 +22,57 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ["username", 'password']
-        # fields = "__all__"
+
+
+#
+#     # code = forms.CharField(
+#     #     label="验证码",
+#     #     widget=forms.TextInput,
+#     #     required=True
+#     # )
+#     #
+#     # def clean_password(self):
+#     #     pwd = self.cleaned_data.get("password")
+#     #     return md5(pwd)
+
+class RegisterForm(forms.ModelForm):
+    username = forms.CharField(
+        label="用户名",
+        widget=forms.TextInput(attrs={"class": "border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"}),
+        required=True
+    )
+    password = forms.CharField(
+        label="密码",
+        widget=forms.PasswordInput(
+            render_value=True,
+            attrs={"class": "border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"}
+        ),
+        required=True
+    )
+    confirm_password = forms.CharField(
+        label="确认密码",
+        widget=forms.PasswordInput(
+            render_value=True,
+            attrs={"class": "border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"}
+        ),
+    )
+
+    class Meta:
+        model = models.User
+        fields = ["username", 'password', 'confirm_password']
         # exclude = ['id']
+
+    def clean_confirm_password(self):
+        # 自定义验证规则
+        print(self.cleaned_data)
+        # confirm = md5(self.cleaned_data.get("confirm_password"))
+        confirm = self.cleaned_data.get("confirm_password")
+        pwd = self.cleaned_data.get("password")
+
+        if confirm != pwd:
+            raise forms.ValidationError("两次密码不一致")
+        # 为什么要return
+        return confirm
 
 
 #

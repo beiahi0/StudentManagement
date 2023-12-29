@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-qr048f^k^f99ujb)fy$8f*ox175b7hqs2mt018)-=txz4yzhxq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["101.34.58.126"]
+ALLOWED_HOSTS = ["101.34.58.126", "127.0.0.1"]
 
 # Application definition
 
@@ -79,8 +79,8 @@ DATABASES = {
         'NAME': 'StudentManagement',  # 数据库名字
         'USER': 'root',
         'PASSWORD': '123456',
-        # 'HOST': '127.0.0.1',  # 那台机器安装了MySQL
-        'HOST': '101.34.58.126',  # 那台机器安装了MySQL
+        'HOST': '127.0.0.1',  # 那台机器安装了MySQL
+        # 'HOST': '101.34.58.126',  # 那台机器安装了MySQL
         'PORT': 3306,
     }
 }
